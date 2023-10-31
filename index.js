@@ -52,6 +52,303 @@ function binarySearch(arr, target){ // Big-O = ?
 // console.log(binarySearch(arr, 20) == -1)
 
 
+function binarySearch(arr, val, start = 0, end = arr.length - 1) {
+  const mid = Math.floor((start + end) / 2);
+
+  if (val === arr[mid]) {
+    return mid;
+  }
+
+  if (start >= end) {
+    return -1;
+  }
+
+  return val < arr[mid]
+    ? binarySearch(arr, val, start, mid - 1)
+    : binarySearch(arr, val, mid + 1, end);
+}
+
+function binarySearchWhile(arr, val) {
+  let start = 0; 
+  let end = arr.length - 1;
+
+  while(start <= end){
+    const mid = Math.floor((start + end) / 2);
+
+    if (val === arr[mid]) {
+      return mid;
+    }
+
+    if(val < arr[mid]){
+      end=mid-1
+    }else{
+      start = mid+1
+    }
+  }
+
+  return -1;
+}
+
+// const arr = [4,46,63,73,77,100,523,4352]
+
+// console.log(binarySearchWhile(arr, 73) === 3);
+// console.log(binarySearchWhile(arr, 100) === 5);
+// console.log(binarySearchWhile(arr, 1000) === -1);
+// console.log(binarySearchWhile(arr, 4) === 0);
+
+
+// stack [last in first out]
+
+class Stack{
+  index=0
+  itemList={}
+
+  push(item) {
+    this.itemList[this.index]=item
+    this.index++
+  }
+
+  pop(){
+    if(this.index === 0) return
+    this.index--
+    const lastItem = this.itemList[this.index]
+    delete this.itemList[this.index]
+    return lastItem
+  }
+
+  peek(){
+    return this.itemList[this.index - 1]
+  }
+
+  size(){
+    return this.index
+  }
+}
+
+class StackArray{
+  itemList=[]
+
+  push(item) {
+    this.itemList.push(item)
+  }
+
+  pop(){
+    return this.itemList.pop()
+  }
+
+  peek(){
+    return this.itemList[this.itemList.length - 1]
+  }
+
+  size(){
+    return this.itemList.length
+  }
+}
+
+const newList = new StackArray()
+
+// console.log(newList.pop() == undefined);
+// newList.push(4);
+// console.log(newList.peek() == 4);
+// newList.push(5);
+// newList.push(10);
+// newList.push(40);
+// console.log(newList.pop() == 40);
+// newList.push(60);
+// newList.push(537);
+// console.log(newList.peek() == 537);
+// console.log(newList.size() == 5);
+
+
+// queue [firt in first out]
+
+class Queue{
+  constructor(){
+    this.firstIndex = 0
+    this.lastIndex = 0
+    this.itemList={}
+  }
+
+  enqueue(item){
+    this.itemList[this.lastIndex]=item
+    this.lastIndex++
+  }
+
+  dequeue(){
+    const result = this.itemList[this.firstIndex]
+    delete this.itemList[this.firstIndex]
+    this.firstIndex++
+    return result
+  }
+
+  peek(){
+    return this.itemList[this.firstIndex]
+  }
+
+  isEmpty(){
+    return Boolean(Object.keys(this.itemList).length)
+  }
+
+  printQueue(){
+    return this.itemList
+  }
+}
+
+// const queue = new Queue()
+// console.log(queue.isEmpty() == false) 
+// queue.enqueue(7)
+// queue.enqueue(2)
+// queue.enqueue(6)
+// queue.enqueue(4)
+// console.log(queue.dequeue()==7)
+// console.log(queue.peek() == 2) 
+// console.log(queue.isEmpty() == true) 
+// console.log(queue.printQueue()) 
+
+class QueueArray{
+  constructor(){
+    this.firstIndex = 0
+    this.lastIndex = 0
+    this.itemList=[]
+  }
+
+  enqueue(item){
+    this.itemList.push(item)
+  }
+
+  dequeue(){
+    return this.itemList.shift()
+  }
+
+  peek(){
+    return this.itemList[0]
+  }
+
+  isEmpty(){
+    return Boolean(this.itemList.length)
+  }
+
+  printQueue(){
+    return this.itemList
+  }
+}
+
+// const queue = new QueueArray()
+// console.log(queue.isEmpty() == false) 
+// queue.enqueue(7)
+// queue.enqueue(2)
+// queue.enqueue(6)
+// queue.enqueue(4)
+// console.log(queue.dequeue()==7)
+// console.log(queue.peek() == 2) 
+// console.log(queue.isEmpty() == true) 
+// console.log(queue.printQueue()) 
+
+
+// helper class
+class QElement {
+  constructor(element, priority)
+  {
+      this.element = element;
+      this.priority = priority;
+  }
+}
+
+// PriorityQueue [item will out based on priority]
+class PriorityQueue {
+ 
+  constructor()
+  {
+      this.items = [];
+  }
+
+  enqueue(item, priority){
+    
+    const newElement = new QElement(item, priority)
+
+    let isContain = false;
+
+    for (let index = 0; index < this.items.length; index++) {
+      const element = this.items[index];
+      if(element.priority > newElement.priority){
+        this.items.splice(index,0,newElement)
+        isContain=true
+        break
+      }
+    }
+
+    if(!isContain){
+      this.items.push(newElement)
+    }
+  }
+
+  dequeue(){
+    if(this.isEmpty()) return 'Underflow'
+    return this.items.shift()
+  }
+
+  front(){
+    if(this.isEmpty()) return "No elements in Queue"
+    return this.items[0]
+  }
+
+  rear(){
+    if(this.isEmpty()) return "No elements in Queue"
+    return this.items[this.items.length - 1]
+  }
+
+  isEmpty(){
+    return this.items.length === 0
+  }
+
+  printPQueue(){
+    let str = ''
+    for (let index = 0; index < this.items.length; index++) {
+      const element = this.items[index];
+      str += element.element + ' '
+    }
+    return str
+  }
+}
+
+// // creating object for queue class
+// var priorityQueue = new PriorityQueue();
+ 
+// // testing isEmpty and front on an empty queue
+// // return true
+// console.log(priorityQueue.isEmpty());
+ 
+// // returns "No elements in Queue"
+// console.log(priorityQueue.front());
+ 
+// // adding elements to the queue
+// priorityQueue.enqueue("Sumit", 2);
+// priorityQueue.enqueue("Gourav", 1);
+// priorityQueue.enqueue("Piyush", 1);
+// priorityQueue.enqueue("Sunny", 2);
+// priorityQueue.enqueue("Sheru", 3);
+ 
+// // // prints [Gourav Piyush Sumit Sunny Sheru]
+// console.log(priorityQueue.printPQueue());
+ 
+// // // prints Gourav
+// console.log(priorityQueue.front().element);
+ 
+// // // prints Sheru
+// console.log(priorityQueue.rear().element);
+ 
+// // removes Gouurav
+// // priorityQueue contains
+// // [Piyush Sumit Sunny Sheru]
+// console.log(priorityQueue.dequeue().element);
+ 
+// // Adding another element to the queue
+// priorityQueue.enqueue("Sunil", 2);
+ 
+// // prints [Piyush Sumit Sunny Sunil Sheru]
+// console.log(priorityQueue.printPQueue());
+
+
 // Heap [ min heap - min value will be the first element ]
 class Heap{
   constructor(){
