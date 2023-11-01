@@ -1,3 +1,5 @@
+import { Heap } from './heap.js';
+
 // queue [firt in first out]
 
 export class Queue{
@@ -185,3 +187,71 @@ export class PriorityQueue {
  
 // // prints [Piyush Sumit Sunny Sunil Sheru]
 // console.log(priorityQueue.printPQueue());
+
+
+export class PriorityQueueHeap {
+ 
+  constructor()
+  {
+      this.heap = new Heap('priority');
+  }
+
+  enqueue(item, priority){
+    const newElement = {
+      item,
+      priority
+    }
+    this.heap.add(newElement)
+  }
+
+  dequeue(){
+    return this.heap.remove()
+  }
+
+  front(){
+    return this.heap.peek()
+  }
+
+  printPQueue(){
+    return this.heap.printHeap()
+  }
+}
+
+// creating object for queue class
+var priorityQueue = new PriorityQueueHeap();
+ 
+console.log('====================================');
+// returns "No elements in Queue"
+console.log(priorityQueue.front());
+
+// adding elements to the queue
+priorityQueue.enqueue("Sumit", 2);
+priorityQueue.enqueue("Gourav", 1);
+priorityQueue.enqueue("Piyush", 1);
+priorityQueue.enqueue("Sunny", 2);
+priorityQueue.enqueue("Sheru", 3);
+ 
+// // prints [Gourav Piyush Sumit Sunny Sheru]
+console.log(priorityQueue.printPQueue());
+
+// // prints Gourav
+console.log(priorityQueue.front());
+
+// removes Gouurav
+// priorityQueue contains
+// [Piyush Sumit Sunny Sheru]
+console.log(priorityQueue.dequeue());
+console.log(priorityQueue.dequeue());
+console.log(priorityQueue.dequeue());
+console.log(priorityQueue.dequeue());
+console.log(priorityQueue.dequeue());
+console.log(priorityQueue.dequeue());
+
+// Adding another element to the queue
+priorityQueue.enqueue("Sunil", 2);
+
+console.log(priorityQueue.dequeue());
+console.log(priorityQueue.dequeue());
+// prints [Piyush Sumit Sunny Sunil Sheru]
+console.log(priorityQueue.printPQueue());
+console.log('====================================');

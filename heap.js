@@ -1,7 +1,8 @@
 // Heap [ min heap - min value will be the first element ]
 export class Heap{
-  constructor(){
+  constructor(label){
     this.heap = []
+    this.label = label !== undefined ? label : null
   }
 
   getLeftChildIndex(parentIndex){
@@ -29,14 +30,17 @@ export class Heap{
   }
 
   leftChild(parentIndex){
+    if(this.label !== null) return this.heap[this.getLeftChildIndex(parentIndex)][this.label] 
     return this.heap[this.getLeftChildIndex(parentIndex)]
   }
 
   rightChild(parentIndex){
+    if(this.label !== null) return this.heap[this.getRightChildIndex(parentIndex)][this.label]
     return this.heap[this.getRightChildIndex(parentIndex)]
   }
 
   parent(childIndex){
+    if(this.label !== null) return this.heap[this.getParentIndex(childIndex)][this.label]
     return this.heap[this.getParentIndex(childIndex)]
   }
 
@@ -72,9 +76,15 @@ export class Heap{
     return item
   }
 
+  getIndexHeap(index){
+    if(this.label !== null) return this.heap[index][this.label]
+    return this.heap[index]
+  }
+
   heapifyUp(){
     let index = this.heap.length - 1
-    while(this.hasParent(index) && this.heap[index] < this.parent(index)){
+    let a = this.getIndexHeap(index)
+    while(this.hasParent(index) && this.getIndexHeap(index) < this.parent(index)){
       this.swap(this.getParentIndex(index), index)
       index = this.getParentIndex(index)
     }
@@ -88,7 +98,7 @@ export class Heap{
         smallerIndex = this.getRightChildIndex(index)
       }
 
-      if(this.heap[index] < this.heap[smallerIndex]){
+      if(this.getIndexHeap(index) < this.getIndexHeap(smallerIndex)){
         break
       }else{
         this.swap(index, smallerIndex)
@@ -99,41 +109,41 @@ export class Heap{
 
 }
 
-// Creating the Heap
-var heap = new Heap();
+// // Creating the Heap
+// var heap = new Heap();
  
-// Adding The Elements
-heap.add(10);
-heap.add(15);
-heap.add(1593);
-heap.add(30);
-heap.add(0);
-heap.add(40);
-heap.add(50);
-heap.add(9);
-heap.add(100);
-heap.add(3040);
-heap.add(40);
+// // Adding The Elements
+// heap.add(10);
+// heap.add(15);
+// heap.add(1593);
+// heap.add(30);
+// heap.add(0);
+// heap.add(40);
+// heap.add(50);
+// heap.add(9);
+// heap.add(100);
+// heap.add(3040);
+// heap.add(40);
  
-// Printing the Heap
-console.log(heap.printHeap());
+// // Printing the Heap
+// console.log(heap.printHeap());
 
-// Peeking And Removing Top Element
-console.log('====================================');
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log(heap.remove());
-console.log('====================================');
+// // Peeking And Removing Top Element
+// console.log('====================================');
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log(heap.remove());
+// console.log('====================================');
 
-console.log(heap.printHeap());
+// console.log(heap.printHeap());
