@@ -1,7 +1,7 @@
 Data structure List
 
-- Array
-- Linked List
+- Array -- [we can use javascripts build in Array data structure]
+- Linked List -- 
 - Stack
 - Queues
 - Hash tables / Hash Maps

@@ -2,11 +2,11 @@
   "name": "dsa",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "linkedList.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "node --watch index.js"
+    "start": "node linkedList.js",
+    "dev": "node --watch linkedList.js"
   },
   "keywords": [],
   "author": "",
