@@ -29,6 +29,59 @@ export class LinkedList {
     this.size++
   }
 
+  removeFirst(){
+    if(this.size == 0) return null
+    this.size--
+    if(this.head === this.tail) {
+      this.head = null
+      this.tail = null
+      return 
+    }
+    const nextNode = this.head.nextNode
+    this.head = nextNode
+  }
+
+  removeLast(){
+    if(this.size == 0) return null
+    let currentNode = this.head
+    while(currentNode){
+      if(currentNode.nextNode === this.tail){
+        currentNode.nextNode = null
+        this.tail = currentNode
+        this.size--
+      }
+      currentNode = currentNode.nextNode
+    }
+
+  }
+
+  removeElement(element){
+
+  }
+
+  insertAt(item,index){
+
+  } 
+
+  removeFrom(index){
+
+  }
+
+  indexOf(element){
+    let index = -1
+    let currentNode = this.head
+    let isFound=false
+    while(currentNode) {
+      index++
+      if(currentNode.element == element) {
+        isFound = true
+        break
+      }
+      currentNode = currentNode.nextNode
+    }
+    return isFound ? index : -1     
+  }
+
   printList(){
     let str = ''
     let currentNode = this.head
@@ -70,26 +123,31 @@ ll.add(50);
 // returns 10 20 30 40 50
 ll.printList();
  
-// // prints 50 from the list
-// console.log("is element removed ?" + ll.removeElement(50));
+// prints 50 from the list
+console.log("is element removed ?" + ll.removeElement(50));
  
-// // prints 10 20 30 40
-// ll.printList();
+// prints 10 20 30 40
+ll.printList();
  
-// // returns 3
-// console.log("Index of 40 " + ll.indexOf(40));
+// returns 3
+console.log("Index of 40 " + ll.indexOf(10));
  
-// // insert 60 at second position
-// // ll contains 10 20 60 30 40
-// ll.insertAt(60, 2);
+// insert 60 at second position
+// ll contains 10 20 60 30 40
+ll.insertAt(60, 2);
  
-// ll.printList();
+ll.printList();
  
-// // returns false
-// console.log("is List Empty ? " + ll.isEmpty());
+// returns false
+console.log("is List Empty ? " + ll.isEmpty());
  
-// // remove 3rd element from the list
-// console.log(ll.removeFrom(3));
+// remove 3rd element from the list
+console.log(ll.removeFrom(3));
  
-// // prints 10 20 60 40
-// ll.printList();
+ll.removeFirst();
+ll.removeFirst();
+ll.removeLast();
+ll.removeLast();
+ll.removeLast();
+// prints 10 20 60 40
+ll.printList();
