@@ -293,24 +293,51 @@ export class DoublyLinkedList {
 
   push(value) {
     const newNode = new DoublyLinkedListNode(value)
+    this.size++
+
     if(this.tail === null){
       this.head = newNode
       this.tail = newNode
-    }else{
-      this.tail.nextNode = newNode
-      newNode.previousNode = this.tail
-      this.tail = newNode
+      return
     }
 
-    this.size++
+    this.tail.nextNode = newNode
+    newNode.previousNode = this.tail
+    this.tail = newNode
   }
 
   pop(){
-    
+    if(this.size === 0) return null
+    let popedItem; 
+    if(this.tail === this.head){
+      popedItem = this.tail
+      this._setInitialValue()
+      return popedItem.data
+    }
+
+    popedItem = this.tail
+    this.tail = this.tail.previousNode
+    this.tail.nextNode = null
+    this.size--
+
+    return popedItem.data
   }
 
   shift(){
+    if(this.size === 0) return null
+    let popedItem; 
+    if(this.tail === this.head){
+      popedItem = this.head
+      this._setInitialValue()
+      return popedItem.data
+    }
 
+    popedItem = this.head
+    this.head = this.head.nextNode
+    this.head.previousNode = null
+    this.size--  
+    
+    return popedItem.data
   }
 
   insertAt(index){
@@ -364,20 +391,30 @@ export class DoublyLinkedList {
 
 const list = new DoublyLinkedList();
 
-list.unshift(1);
-list.unshift(2);
-list.unshift(3);
+// list.unshift(1);
+// list.unshift(2);
+// list.unshift(3);
+list.push(1);
+list.push(2);
+list.push(3);
 list.push(4);
+list.push(5);
+list.push(6);
 // list.insertAt(3, 5);
 list.printList()
-list.printListInReverseOrder()
+console.log(list.shift());
+console.log(list.shift());
+console.log(list.shift());
+console.log(list.shift());
+list.printList()
+// list.printListInReverseOrder()
 
 // console.log(list.size === 5);                      // 5
 // console.log(list.head.value === 3);                // 3
 // console.log(list.head.next.value === 2);           // 2
 // console.log(list.tail.value === 4);                // 4
 // console.log(list.tail.previous.value === 5);       // 5
-console.log('[3, 2, 1, 5, 4]', [...list]);    // [3, 2, 1, 5, 4]
+// console.log('[3, 2, 1, 5, 4]', [...list]);    // [3, 2, 1, 5, 4]
 
 // console.log(list.removeAt(1) === 2);               // 2
 // console.log(list.getAt(1).value === 1);            // 1
