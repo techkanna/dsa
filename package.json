@@ -2,11 +2,11 @@
   "name": "dsa",
   "version": "1.0.0",
   "description": "",
-  "main": "linkedList.js",
+  "main": "hashTable.js",
   "type": "module",
   "scripts": {
-    "start": "node linkedList.js",
-    "dev": "node --watch linkedList.js"
+    "start": "node hashTable.js",
+    "dev": "node --watch hashTable.js"
   },
   "keywords": [],
   "author": "",
