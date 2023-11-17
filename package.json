@@ -2,11 +2,11 @@
   "name": "dsa",
   "version": "1.0.0",
   "description": "",
-  "main": "hashTable.js",
+  "main": "tree.js",
   "type": "module",
   "scripts": {
-    "start": "node hashTable.js",
-    "dev": "node --watch hashTable.js"
+    "start": "node tree.js",
+    "dev": "node --watch tree.js"
   },
   "keywords": [],
   "author": "",
