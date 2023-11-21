@@ -37,9 +37,80 @@ export class BinarySearchTree{
     }
   }
 
+  _getChildCount(node){
+    let count = 0
+    if(node.leftNode !== null){
+      count++
+    }
+    if(node.rightNode !== null){
+      count++
+    }
+
+    return count
+  }
+
   remove(data){
     if(this.root === null) return false
     
+    let currentNode = this.root
+    while(currentNode){
+      if(data === currentNode.data) return false
+      if(data < currentNode.data){
+        const foundNode = currentNode.leftNode && currentNode.leftNode.data === data
+        const hasZerochild = foundNode && this._getChildCount(currentNode.leftNode) === 0
+        const hasOnechild = foundNode && this._getChildCount(currentNode.leftNode) === 1
+        
+        // if delete node has 0 child
+        if(hasZerochild) {
+          const deletedNode = currentNode.leftNode
+          currentNode.leftNode = null
+          return deletedNode
+        }
+        
+        // if delete node has 1 child
+        if(hasOnechild) {
+          let replaceNode = null
+          if(currentNode.leftNode.leftNode === null){
+            replaceNode = currentNode.leftNode.rightNode
+          }else{
+            replaceNode = currentNode.leftNode.leftNode
+          }
+          const deletedNode = currentNode.leftNode
+          currentNode.leftNode = replaceNode
+          return deletedNode
+        }
+        
+        currentNode = currentNode.leftNode
+      }else{
+        const foundNode = currentNode.rightNode && currentNode.rightNode.data === data
+        const hasZerochild = foundNode && this._getChildCount(currentNode.rightNode) === 0
+        const hasOnechild = foundNode && this._getChildCount(currentNode.rightNode) === 1
+        
+        // if delete node has 0 child
+        if(hasZerochild) {
+          const deletedNode = currentNode.rightNode
+          currentNode.rightNode = null
+          return deletedNode
+        }
+        
+        // if delete node has 1 child
+        if(hasOnechild) {
+          let replaceNode = null
+          if(currentNode.rightNode.leftNode === null){
+            replaceNode = currentNode.rightNode.rightNode
+          }else{
+            replaceNode = currentNode.rightNode.leftNode
+          }
+          const deletedNode = currentNode.rightNode
+          currentNode.rightNode = replaceNode
+          return deletedNode
+        }
+
+        currentNode = currentNode.rightNode
+      }
+    }
+
+    return false
   }
 
   find(data){
@@ -101,6 +172,13 @@ BST.insert(13);
 BST.insert(5);
 BST.insert(9);
 BST.insert(27);
+
+// BST.insert(50);
+// BST.insert(47);
+// BST.insert(59);
+// BST.insert(48);
+// BST.insert(7);
+
                
 // find node 
 // console.log(BST.find(15));
@@ -116,10 +194,14 @@ BST.insert(27);
 var root = BST.getRootNode();
              
 // prints 5 7 9 10 13 15 17 22 25 27
-// BST.inorder(root);
+console.log('====================================');
+console.log('before start');
+BST.inorder(root);
+console.log('before end');
+console.log('====================================');
 
-// // Removing node with no children 
-// BST.remove(5);
+// Removing node with no children 
+console.log("removed Node : ", BST.remove(5)); 
              
              
 // //          15
@@ -131,13 +213,13 @@ var root = BST.getRootNode();
 // //        9  17 
              
                          
-// var root = BST.getRootNode();
+var root = BST.getRootNode();
              
-// // prints 7 9 10 13 15 17 22 25 27
-// BST.inorder(root);
+// prints 7 9 10 13 15 17 22 25 27
+BST.inorder(root);
              
 // // Removing node with one child 
-// BST.remove(7);
+console.log("removed Node : ", BST.remove(7)); 
              
 // //          15
 // //         /  \
@@ -148,13 +230,13 @@ var root = BST.getRootNode();
 // //           17 
              
              
-// var root = BST.getRootNode();
- 
-// // prints 9 10 13 15 17 22 25 27
-// BST.inorder(root);
+var root = BST.getRootNode();
+console.log('---');
+// prints 9 10 13 15 17 22 25 27
+BST.inorder(root);
              
-// // Removing node with two children 
-// BST.remove(15);
+// Removing node with two children 
+console.log("removed Node : ", BST.remove(15)); 
      
 // //          17
 // //         /  \
